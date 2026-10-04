@@ -1,0 +1,7 @@
+# macOS only: Terminal/iTerm open login shells, which read this instead of ~/.bashrc.
+# (Linux uses ~/.profile for this, so the install script doesn't link this file there.)
+
+# Silence macOS's "the default shell is now zsh" notice
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
+[ -f ~/.bashrc ] && . ~/.bashrc

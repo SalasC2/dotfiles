@@ -1,0 +1,6 @@
+# Homelab / DevOps tools, only where wanted:  brew bundle --file=~/dotfiles/Brewfile.k8s
+tap "fluxcd/tap"
+brew "fluxcd/tap/flux"
+brew "kubernetes-cli"
+brew "kubectx"
+brew "k9s"

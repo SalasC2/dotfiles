@@ -1,0 +1,17 @@
+[user]
+	name = Christian
+	# No email here on purpose: each machine sets its own in ~/.gitconfig.local
+	# (personal on personal machines, work on the work laptop). useConfigOnly makes
+	# git refuse to commit until one is set, instead of guessing.
+	useConfigOnly = true
+[credential "https://github.com"]
+	helper =
+	helper = !gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !gh auth git-credential
+
+# Per-machine overrides, e.g. a work email on the work laptop. Not in git.
+# Must stay last so it wins.
+[include]
+	path = ~/.gitconfig.local

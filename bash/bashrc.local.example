@@ -1,0 +1,5 @@
+# Copy to ~/.bashrc.local on a machine and edit. Never committed.
+
+# This Ubuntu box:
+# export PATH="$HOME/.rd/bin:$PATH"   # Rancher Desktop
+# export DISPLAY=:99

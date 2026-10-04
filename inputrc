@@ -1,0 +1,26 @@
+$include /etc/inputrc
+
+# Vim-style line editing in bash (and anything else using readline)
+set editing-mode vi
+
+# Show the current mode at the start of the prompt: [I] = insert, [N] = normal
+set show-mode-in-prompt on
+set vi-ins-mode-string "\1\e[6 q\2[I] "
+set vi-cmd-mode-string "\1\e[2 q\2[N] "
+
+# Make Esc switch modes instantly (default waits 0.5s for a key sequence)
+set keyseq-timeout 10
+
+# Keep a few emacs-style keys working in insert mode
+$if mode=vi
+set keymap vi-insert
+"\C-l": clear-screen
+"\C-a": beginning-of-line
+"\C-e": end-of-line
+"\C-w": backward-kill-word
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+set keymap vi-command
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+$endif
