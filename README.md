@@ -29,6 +29,18 @@ If a managed work Mac blocks `chsh`, set the terminal app to run
 
 Also set the terminal font to "JetBrainsMono Nerd Font" so Neovim icons render.
 
+## Optional: Kubernetes tools
+
+Separate step, only on machines that need it:
+
+```bash
+brew bundle --file=~/dotfiles/Brewfile.k8s   # kubectl, flux, kubectx, k9s
+```
+
+`bash/bashrc.d/08-k8s.bashrc` (the `k` alias + completion) switches itself on once
+kubectl exists. Cluster credentials (`~/.kube/config`) never go in this repo: each
+machine gets its own from the cluster or from work.
+
 ## Per-machine settings (never committed)
 
 - `~/.bashrc.local`: PATH tweaks, env vars (see `bash/bashrc.local.example`)
