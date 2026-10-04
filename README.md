@@ -2,7 +2,20 @@
 
 Bash + Neovim (LazyVim) + tmux setup shared across Ubuntu, macOS and WSL.
 
-## New machine
+## Quick start: Neovim only (any Mac / Linux / WSL, nothing else touched)
+
+```bash
+brew install neovim ripgrep fd lazygit tree-sitter
+git clone https://github.com/SalasC2/dotfiles.git ~/dotfiles
+~/dotfiles/install.sh nvim          # dry run
+~/dotfiles/install.sh --apply nvim  # links ~/.config/nvim (old one backed up)
+nvim                                # first launch installs plugins
+```
+
+Mac: `brew install --cask font-jetbrains-mono-nerd-font`, then set it as the terminal font.
+Update later with `git -C ~/dotfiles pull`, then `:Lazy restore` inside Neovim.
+
+## New machine (full setup)
 
 ```bash
 # 1. Homebrew (https://brew.sh), then the tools
