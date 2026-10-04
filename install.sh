@@ -5,6 +5,7 @@
 #   ./install.sh --apply       do it, using symlinks (git pull updates instantly)
 #   ./install.sh --apply --copy    copy files instead of symlinking
 #   ./install.sh --uninstall --apply   remove our symlinks, restore latest backups
+#   ./install.sh --apply nvim  only this piece (names from the repo column below)
 #
 # Never deletes anything: an existing file is moved to ~/.dotfiles-backup/<time>/
 # first. Never uses sudo, never installs packages, never changes your shell.
@@ -19,14 +20,16 @@ BACKUP="$BACKUP_ROOT/$(date +%Y%m%d-%H%M%S)"
 APPLY=false
 METHOD=link
 ACTION=install
+ONLY=""
 
 for arg in "$@"; do
     case "$arg" in
         --apply) APPLY=true ;;
         --copy) METHOD=copy ;;
         --uninstall) ACTION=uninstall ;;
-        -h|--help) sed -n '2,12p' "$0"; exit 0 ;;
-        *) echo "unknown option: $arg" >&2; exit 1 ;;
+        -h|--help) sed -n '2,13p' "$0"; exit 0 ;;
+        -*) echo "unknown option: $arg" >&2; exit 1 ;;
+        *) ONLY="$ONLY $arg" ;;
     esac
 done
 
@@ -117,6 +120,9 @@ echo
 
 echo "$FILES" | while IFS=: read -r src dest; do
     [ -z "$src" ] && continue
+    if [ -n "$ONLY" ]; then
+        case "$ONLY " in *" $src "*) ;; *) continue ;; esac
+    fi
     if [ "$ACTION" = install ]; then
         install_one "$src" "$dest"
     else
@@ -124,7 +130,7 @@ echo "$FILES" | while IFS=: read -r src dest; do
     fi
 done
 
-if [ "$ACTION" = install ] && [ ! -f "$HOME/.bashrc.local" ]; then
+if [ "$ACTION" = install ] && [ -z "$ONLY" ] && [ ! -f "$HOME/.bashrc.local" ]; then
     echo
     echo "Tip: put machine-only settings in ~/.bashrc.local (see bash/bashrc.local.example)."
 fi

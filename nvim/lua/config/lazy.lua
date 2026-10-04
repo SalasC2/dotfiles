@@ -45,7 +45,7 @@ require("lazy").setup({
         -- "netrwPlugin",
         "tarPlugin",
         "tohtml",
-        "tutor",
+        -- "tutor", -- kept on so :Tutor works
         "zipPlugin",
       },
     },
