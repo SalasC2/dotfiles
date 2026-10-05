@@ -56,6 +56,37 @@ alias py='python3'
 alias be='bundle exec'
 alias sql='sqlite3'
 
+# Vim mode for zsh, same as ~/.inputrc gives bash: Esc = normal mode, the prompt
+# starts with [I] (insert) or [N] (normal), cursor is a bar in insert, block in normal.
+if [ -n "${ZSH_VERSION-}" ] && [[ -o interactive ]]; then
+    bindkey -v
+    KEYTIMEOUT=1   # Esc switches instantly (default waits 0.4s)
+
+    # Keep a few emacs-style keys working in insert mode
+    bindkey -M viins '^A' beginning-of-line
+    bindkey -M viins '^E' end-of-line
+    bindkey -M viins '^L' clear-screen
+    bindkey -M viins '^W' backward-kill-word
+    bindkey -M viins '^?' backward-delete-char   # vi's version stops where insert began
+    bindkey -M viins '^H' backward-delete-char
+
+    _vi_mode_update() {
+        case $KEYMAP in
+            vicmd) _vi_mode='[N] '; printf '\e[2 q' ;;
+            *)     _vi_mode='[I] '; printf '\e[6 q' ;;
+        esac
+        zle reset-prompt
+    }
+    zle -N _vi_mode_update
+    autoload -Uz add-zle-hook-widget
+    add-zle-hook-widget keymap-select _vi_mode_update
+    add-zle-hook-widget line-init _vi_mode_update
+
+    _vi_mode='[I] '
+    setopt prompt_subst
+    case $PROMPT in *'${_vi_mode}'*) ;; *) PROMPT='${_vi_mode}'"$PROMPT" ;; esac
+fi
+
 # Kubernetes (does nothing until kubectl is installed)
 if command -v kubectl >/dev/null 2>&1; then
     alias k='kubectl'
