@@ -12,13 +12,3 @@ export GIT_PS1_SHOWDIRTYSTATE=1
 export GIT_PS1_SHOWSTASHSTATE=1
 export GIT_PS1_SHOWUNTRACKEDFILES=1
 
-# Handy shortcuts
-alias g='git'
-alias gs='git status -sb'
-alias gd='git diff'
-alias gds='git diff --staged'
-alias gl='git log --oneline --graph --decorate -20'
-alias gco='git checkout'
-alias gb='git branch'
-alias gp='git pull'
-alias gcm='git commit -m'

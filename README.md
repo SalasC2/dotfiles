@@ -1,6 +1,7 @@
 # dotfiles
 
-Bash + Neovim (LazyVim) + tmux setup shared across Ubuntu, macOS and WSL.
+Bash + Neovim (LazyVim) + tmux setup shared across Ubuntu, macOS and WSL,
+plus aliases shared between bash and zsh.
 
 ## Quick start: Neovim only (any Mac / Linux / WSL, nothing else touched)
 
@@ -42,6 +43,26 @@ If a managed work Mac blocks `chsh`, set the terminal app to run
 
 Also set the terminal font to "JetBrainsMono Nerd Font" so Neovim icons render.
 
+## Aliases on any machine (bash or zsh, keeps your own config)
+
+```bash
+~/dotfiles/install.sh shell                       # dry run
+~/dotfiles/install.sh --apply shell               # generic only: work laptops
+~/dotfiles/install.sh --apply --personal shell    # + personal: own machines
+```
+
+Links the files below into `~/.config/shell/` and adds one line to the end of your
+own `~/.bashrc` / `~/.zshrc` (backed up first) that loads them. Nothing else in those
+files changes, and it loads after Oh My Zsh so your aliases win. Undo:
+`~/dotfiles/install.sh --uninstall --apply shell`.
+
+- `shell/10-common.sh`: generic (ls, git, tmux, kubectl...). Safe on a work laptop.
+- `shell/20-personal.sh`: own functions and fun stuff. Only with `--personal`.
+- `~/.config/shell/90-local.sh`: this machine only, never committed. Create by hand.
+
+Both files must work in bash **and** zsh. This repo is public: nothing
+company-specific (hostnames, internal tools) goes in either one.
+
 ## Optional: Kubernetes tools
 
 Separate step, only on machines that need it:
@@ -50,7 +71,7 @@ Separate step, only on machines that need it:
 brew bundle --file=~/dotfiles/Brewfile.k8s   # kubectl, flux, kubectx, k9s
 ```
 
-`bash/bashrc.d/08-k8s.bashrc` (the `k` alias + completion) switches itself on once
+The `k` alias + completion in `shell/10-common.sh` switch themselves on once
 kubectl exists. Cluster credentials (`~/.kube/config`) never go in this repo: each
 machine gets its own from the cluster or from work.
 
