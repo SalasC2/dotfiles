@@ -5,7 +5,7 @@ Bash + Neovim (LazyVim) + tmux setup shared across Ubuntu, macOS and WSL.
 ## Quick start: Neovim only (any Mac / Linux / WSL, nothing else touched)
 
 ```bash
-brew install neovim ripgrep fd lazygit tree-sitter
+brew install neovim ripgrep fd lazygit tree-sitter-cli
 git clone https://github.com/SalasC2/dotfiles.git ~/dotfiles
 ~/dotfiles/install.sh nvim          # dry run
 ~/dotfiles/install.sh --apply nvim  # links ~/.config/nvim (old one backed up)

@@ -8,7 +8,7 @@ brew "ripgrep"
 brew "fd"
 brew "fzf"
 brew "lazygit"
-brew "tree-sitter"
+brew "tree-sitter-cli"
 brew "tmux"
 
 if OS.mac?
